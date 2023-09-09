@@ -77,6 +77,7 @@ template<typename T> void ShakerSort(T* arr, int count, Direction dir = Directio
 }
 
 int main() {
+    setlocale(LC_ALL, "ru");
     const int COUNT = 7;
     double arr[] = {4, 7, 1, 8, 7, 3, 9};
 
