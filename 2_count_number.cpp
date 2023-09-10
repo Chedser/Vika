@@ -11,7 +11,7 @@ int GetRandomNumber(int min, int max){
 template<typename T> int CountOfNumber(T* x, int i, T numberToFind){
     if (i < 0) return 0; // выход из рекурсии, когда проверены все элементы
     int n = 0;
-    if (x[i] == numberToFind) n = 1;  // если входит в интервал, то засчитываем
+    if (x[i] > numberToFind) n = 1;  // если входит в интервал, то засчитываем
     return n + CountOfNumber(x, i - 1, numberToFind); // суммируем засчитанные элементы
 }
 
