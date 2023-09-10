@@ -76,23 +76,72 @@ template<typename T> void ShakerSort(T* arr, int count, Direction dir = Directio
     }
 }
 
+/* Функция сортировки вставками  */
+template<typename T> void InsertSort(T* arr, int n, Direction dir = Direction::Ascending) {
+    int counter = 0;
+    
+    if (dir == Direction::Ascending) {
+        for (int i = 1; i < n; i++) {
+            for (int j = i; j > 0 && arr[j - 1] > arr[j]; j--) {
+                counter++;
+                T tmp = arr[j - 1];
+                arr[j - 1] = arr[j];
+                arr[j] = tmp;
+            }
+        }
+
+    }
+    else {
+    
+        for (int i = 1; i < n; i++) {
+            for (int j = i; j > 0 && arr[j - 1] < arr[j]; j--) {
+                counter++;
+                T tmp = arr[j - 1];
+                arr[j - 1] = arr[j];
+                arr[j] = tmp;
+            }
+        }
+
+    }
+    
+
+}
+
 int main() {
-    setlocale(LC_ALL, "ru");
     const int COUNT = 7;
-    double arr[] = {4, 7, 1, 8, 7, 3, 9};
+    int arr[] = {4, 7, 1, 8, 7, 3, 9};
 
     cout << "Элементы массива:" << endl;
     Print(arr, COUNT);
     cout << endl;
 
-    ShakerSort(arr, COUNT); // Сортировка по возрастанию
-    cout << "По возрастанию:" << endl;
+   // ShakerSort(arr, COUNT); // Сортировка по возрастанию
+    InsertSort(arr, COUNT);
+    cout << "Сортировка вставками по возрастанию:" << endl;
     Print(arr, COUNT);
     cout << endl;
 
-    ShakerSort(arr, COUNT, Direction::Descending); // Сортировка по убыванию
-    cout << "По убыванию:" << endl;
+  //  ShakerSort(arr, COUNT, Direction::Descending); // Сортировка по убыванию
+    InsertSort(arr, COUNT, Direction::Descending);
+    cout << "Сортировка вставками по убыванию:" << endl;
     Print(arr, COUNT);
+
+    int arr2[] = { 40, 70, 15, 89, 77, 3, 9 };
+
+    cout << endl;
+
+    cout << "Элементы массива:" << endl;
+    Print(arr2, COUNT);
+    cout << endl;
+
+    ShakerSort(arr2, COUNT); // Сортировка по возрастанию
+    cout << "Шейкерная сортировка по возрастанию:" << endl;
+    Print(arr2, COUNT);
+    cout << endl;
+
+    ShakerSort(arr2, COUNT, Direction::Descending); // Сортировка по убыванию
+    cout << "Шейкерная сортировка по убыванию:" << endl;
+    Print(arr2, COUNT);
 
     return 0;
 }
