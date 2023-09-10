@@ -16,9 +16,9 @@ template<typename T>void Swap(T* first, T* second, T* third) {
 
 int main(){
     setlocale(LC_ALL, "ru");
-    int first = 3;
-    int second = 2;
-    int third = 1;
+    float first = 3;
+    float second = 2;
+    float third = 1;
 
     cout << "Начальные элементы:" << endl;
     cout << "Первый: " << first << endl;
