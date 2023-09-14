@@ -1,0 +1,77 @@
+/*
+* Дан массив из 20 целых чисел. Написать функцию,
+* возвращающую ссылку на минимальный нечетный элемент,
+* по полученной ссылке изменить значение этого элемента на случайное и
+* вывести итоговый массив на экран
+*/
+#include <iostream>
+#include <stdlib.h>
+#include <exception>
+
+using namespace std;
+
+/* Печать массива */
+template<typename T> void Print(T* arr, const int size) {
+    for (int i = 0; i < size; i++) {
+        cout << i << ": " << arr[i] << endl;
+    }
+}
+
+/* Заполнение массива */
+void FillArray(int* arr , const int size, int min, int max ) {
+    for (int i = 0; i < size; i++) {
+        arr[i] = min + rand() % (max - min + 1);
+    }
+}
+
+/* Минимальный нечетный элемент */
+ template<typename T> T& MinOdd(T* arr, const int size){
+     T min = arr[0]; // Начальный минимальный элемент
+     T min_odd_index = 0; // Начальный минимальный индекс
+    
+     for ( ; min_odd_index  < size && (arr[min_odd_index] & 1) == 0; ++min_odd_index);
+     
+     if (min_odd_index == size) { // Исключение, если все элементы четные
+         throw  exception("Error: All array elements are even");
+     }
+
+     for (int i = min_odd_index + 1; i < size; ++i){
+         if ((arr[i] & 1) == 1 && arr[i] < arr[min_odd_index]) {
+             min_odd_index = i;
+         }
+     }
+    return arr[min_odd_index];
+}
+
+int main(){
+    setlocale(LC_ALL, "ru");
+
+    srand(time(NULL));
+
+    const int SIZE = 20;
+    int arr[SIZE];
+
+    FillArray(arr, SIZE, 1, 99); // Заполнение массива
+     
+    cout << "Элементы массива:" << endl;
+    Print(arr, SIZE);
+    cout << endl;
+
+    try {
+        int& min_odd_element = MinOdd(arr, SIZE);
+        cout << "Минимальный нечетный элемент: " << min_odd_element << endl;
+
+        min_odd_element = 777;
+        cout << "Изменение минимального нечетного элемента на 777" << endl << endl;
+        cout << "Элементы массива после изменения:" << endl;
+        Print(arr, SIZE);
+        min_odd_element = MinOdd(arr, SIZE);
+        cout << endl;
+        cout << "Минимальный нечетный элемент после изменения: " << min_odd_element << endl;
+    } catch (const exception& ex) { // Ошибка! Все элементы четные
+        cout << ex.what() << endl;
+        return 1;
+    }
+
+    return 0;
+}
