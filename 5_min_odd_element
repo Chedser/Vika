@@ -19,32 +19,32 @@ template<typename T> void Print(T* arr, const int size) {
 }
 
 /* Заполнение массива */
-void FillArray(int* arr, const int size, const int min, const int max ) {
+void FillArray(int* arr, const int size, const int min, const int max) {
     for (int i = 0; i < size; i++) {
         arr[i] = min + rand() % (max - min + 1);
     }
 }
 
 /* Минимальный нечетный элемент */
- template<typename T> T& MinOdd(T* arr, const int size){
-     T min = arr[0]; // Начальный минимальный элемент
-     T min_odd_index = 0; // Начальный минимальный индекс
-    
-     for ( ; min_odd_index  < size && (arr[min_odd_index] & 1) == 0; ++min_odd_index);
-     
-     if (min_odd_index == size) { // Исключение, если все элементы четные
-         throw  exception("Error: All array elements are even");
-     }
+template<typename T> T& MinOdd(T* arr, const int size) {
+    T min = arr[0]; // Начальный минимальный элемент
+    T min_odd_index = 0; // Начальный минимальный индекс
 
-     for (int i = min_odd_index + 1; i < size; ++i){
-         if ((arr[i] & 1) == 1 && arr[i] < arr[min_odd_index]) {
-             min_odd_index = i;
-         }
-     }
+    for (; min_odd_index < size && (arr[min_odd_index] & 1) == 0; ++min_odd_index);
+
+    if (min_odd_index == size) { // Исключение, если все элементы четные
+        throw  exception("Error: All array elements are even");
+    }
+
+    for (int i = min_odd_index + 1; i < size; ++i) {
+        if ((arr[i] & 1) == 1 && arr[i] < arr[min_odd_index]) {
+            min_odd_index = i;
+        }
+    }
     return arr[min_odd_index];
 }
 
-int main(){
+int main() {
     setlocale(LC_ALL, "ru");
 
     srand(time(NULL));
@@ -53,7 +53,7 @@ int main(){
     int arr[SIZE];
 
     FillArray(arr, SIZE, 1, 99); // Заполнение массива
-     
+
     cout << "Элементы массива:" << endl;
     Print(arr, SIZE);
     cout << endl;
@@ -62,14 +62,15 @@ int main(){
         int& min_odd_element = MinOdd(arr, SIZE);
         cout << "Минимальный нечетный элемент: " << min_odd_element << endl;
 
-        min_odd_element = 777;
-        cout << "Изменение минимального нечетного элемента на 777" << endl << endl;
+        min_odd_element = (1 + rand() % 100);
+        cout << "Изменение минимального нечетного элемента на " << min_odd_element << endl << endl;
         cout << "Элементы массива после изменения:" << endl;
         Print(arr, SIZE);
         min_odd_element = MinOdd(arr, SIZE);
         cout << endl;
         cout << "Минимальный нечетный элемент после изменения: " << min_odd_element << endl;
-    } catch (const exception& ex) { // Ошибка! Все элементы четные
+    }
+    catch (const exception& ex) { // Ошибка! Все элементы четные
         cout << ex.what() << endl;
         return 1;
     }
