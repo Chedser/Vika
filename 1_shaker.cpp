@@ -3,7 +3,6 @@
 using std::cout;
 using std::endl;
 
-
 // Направление сортировки
 enum class  Direction {
     Ascending,
