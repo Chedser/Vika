@@ -27,6 +27,7 @@ struct Film{
 
 Film::Film(string name, string date, int genre, int price) : name(name), date(date), genre(genre), price(price) {};
 
+
 void SplitString(string str, char separator, vector<string>& strings) {
     int startIndex = 0, endIndex = 0;
     for (size_t i = 0; i <= str.size(); i++) {
