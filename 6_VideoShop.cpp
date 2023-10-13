@@ -98,6 +98,8 @@ int main() {
     int price;
     int genre;
 
+
+
     while (currentIndex < count){
         cin.clear();
         cin.ignore();
@@ -141,17 +143,18 @@ int main() {
         cout << "Жанр -- " << Genre(genre) << endl;
 
         while (true) {
-            cout << "Введите дату выхода в формате ДД/ММ/ГГГГ или ДД.ММ.ГГГГ" << endl;
+            cout << "Введите дату выхода в формате ДД/ММ/ГГГГ" << endl;
             cin >> date;
 
-            if (!regex_match(date, std::regex(R"((0[1-9]|[12][0-9]|3[01])[/.](0[1-9]|1[012])[/.](19|20)\d\d)"))) {
+            if (!regex_match(date, std::regex(R"((0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/](19|20)\d\d)"))) {
                 cin.clear();
                 cin.ignore();
-                cout << "Дата должна быть в формате ДД/ММ/ГГГГ или ДД.ММ.ГГГГ" << endl;
+                cout << "Дата должна быть в формате ДД/ММ/ГГГГ" << endl;
                 continue;
             }
             break;
         }
+
 
         while (true) {
             cout << "Введите цену" << endl;
@@ -239,8 +242,8 @@ int main() {
 
     }
 
-    if(searchParam == 1) { //Поиск по жанру
 
+    if(searchParam == 1) { //Поиск по жанру
         cout << "Жанр:" << endl <<
             "1 - Романтическая комедия" << endl <<
             "2 - Научная фантастика" << endl <<
@@ -292,6 +295,7 @@ int main() {
                     "Дата: " << film->date << endl <<
                     "Цена: " << film->price << endl << endl;
                 ++i;
+
             }
         }
         else {
