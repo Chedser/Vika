@@ -62,7 +62,7 @@ string GetGenreByNumber(int genre){
     }
 }
 
-string GetGenreByNumber(Film* film) {
+string GetGenre(Film* film) {
     switch (film->genre) {
         case Genre::Romcom: return "Романтическая комедия";
         case Genre::Scifi: return "Научная фантастика";
@@ -181,7 +181,7 @@ int main() {
     for (int i = 0; i < count; i++) {
         cout << (i + 1) << "." << endl <<
                             "Название: " << films[i]->name << endl <<
-                            "Жанр: " << GetGenreByNumber(films[i]) << endl <<
+                            "Жанр: " << GetGenre(films[i]) << endl <<
                             "Дата: " << films[i]->date << endl <<
                             "Цена: " << films[i]->price << endl << endl;
     }
@@ -232,7 +232,7 @@ int main() {
             for (Film* film : foundFilms) {
                     cout << i << "." << endl <<
                         "Название: " << film->name << endl <<
-                        "Жанр: " << GetGenreByNumber(film) << endl <<
+                        "Жанр: " << GetGenre(film) << endl <<
                         "Дата: " << film->date << endl <<
                         "Цена: " << film->price << endl << endl;
                     ++i;
@@ -293,7 +293,7 @@ int main() {
             for (Film* film : foundFilms) {
                 cout << i << "." << endl <<
                     "Название: " << film->name << endl <<
-                    "Жанр: " << GetGenreByNumber(film) << endl <<
+                    "Жанр: " << GetGenre(film) << endl <<
                     "Дата: " << film->date << endl <<
                     "Цена: " << film->price << endl << endl;
                 ++i;
