@@ -2,17 +2,24 @@
 #include <string>
 #include <vector>
 #include <regex>
+#include <exception>
 
 using namespace std;
 
 /* Жанр */
 enum Genre {
-    romcom = 1, //Романтическая комедия
-    scifi = 2, //Научная фантастика
-    horror = 3, //Фильм ужасов
-    documentary = 4, //Документальный фильм
-    action = 5, //Боевик
-    drama = 6 //Драма
+    Romcom = 1, //Романтическая комедия
+    Scifi = 2, //Научная фантастика
+    Horror = 3, //Фильм ужасов
+    Documentary = 4, //Документальный фильм
+    Action = 5, //Боевик
+    Drama = 6 //Драма
+};
+
+/* Параметр поиска */
+enum SearchParam{
+    Year,
+    Genre
 };
 
 /* Фильм */
@@ -22,7 +29,7 @@ struct Film{
     int price;
     int genre;
     Film(string name, string date, int price, int genre);
-    friend string Genre(Film* film);
+    friend string GetGenreByNumber(Film* film);
 };
 
 Film::Film(string name, string date, int genre, int price) : name(name), date(date), genre(genre), price(price) {};
@@ -43,51 +50,49 @@ void SplitString(string str, char separator, vector<string>& strings) {
     }
 }
 
-string Genre(int genre){
+string GetGenreByNumber(int genre){
     switch (genre) {
-        case 1: return "Романтическая комедия";
-        case 2: return "Научная фантастика";
-        case 3: return "Фильм ужасов";
-        case 4: return "Документальный фильм";
-        case 5: return "Боевик";
-        case 6: return "Драма";
-        default: throw exception("Неизвестный жанр");
+        case Genre::Romcom: return "Романтическая комедия";
+        case Genre::Scifi: return "Научная фантастика";
+        case Genre::Horror: return "Фильм ужасов";
+        case Genre::Documentary: return "Документальный фильм";
+        case Genre::Action: return "Боевик";
+        case Genre::Drama: return "Драма";
+        default: throw invalid_argument("Неизвестный жанр");
     }
 }
 
-string Genre(Film* film) {
+string GetGenreByNumber(Film* film) {
     switch (film->genre) {
-        case 1: return "Романтическая комедия";
-        case 2: return "Научная фантастика";
-        case 3: return "Фильм ужасов";
-        case 4: return "Документальный фильм";
-        case 5: return "Боевик";
-        case 6: return "Драма";
-        default: throw exception("Неизвестный жанр");
+        case Genre::Romcom: return "Романтическая комедия";
+        case Genre::Scifi: return "Научная фантастика";
+        case Genre::Horror: return "Фильм ужасов";
+        case Genre::Documentary: return "Документальный фильм";
+        case Genre::Action: return "Боевик";
+        case Genre::Drama: return "Драма";
+        default: throw invalid_argument("Неизвестный жанр");
     }
-
 }
 
 int main() {
-    setlocale(LC_ALL, "ru");
-    
+    setlocale(LC_ALL, "Russian");
+
     int count; // Количество фильмов
     cout << "Введите количество фильмов от 1 до 10" << endl;
     while (true) {
           cin >> count;
-          if (cin.fail()) { 
+          if (cin.fail()) {
               cout << "Неверный ввод" << endl;
               cin.clear();
               cin.ignore();
-              continue; 
+              continue;
           }
           if (count < 1 || count > 10) {
             cout << "Количество фильмов должно быть от 1 до 10" << endl;
-            continue; 
+            continue;
         }
         break;
      }
-
 
     Film** films = new Film*[count];
 
@@ -96,8 +101,6 @@ int main() {
     string date;
     int price;
     int genre;
-
-
 
     while (currentIndex < count){
         cin.clear();
@@ -139,7 +142,7 @@ int main() {
             break;
         }
 
-        cout << "Жанр -- " << Genre(genre) << endl;
+        cout << "Жанр -- " << GetGenreByNumber(genre) << endl;
 
         while (true) {
             cout << "Введите дату выхода в формате ДД/ММ/ГГГГ" << endl;
@@ -168,7 +171,7 @@ int main() {
 
             break;
         }
-        
+
         films[currentIndex] = new Film(name, date, genre, price);
         ++currentIndex;
     }
@@ -177,8 +180,8 @@ int main() {
 
     for (int i = 0; i < count; i++) {
         cout << (i + 1) << "." << endl <<
-                            "Название: " << films[i]->name << endl << 
-                            "Жанр: " << Genre(films[i]) << endl <<
+                            "Название: " << films[i]->name << endl <<
+                            "Жанр: " << GetGenreByNumber(films[i]) << endl <<
                             "Дата: " << films[i]->date << endl <<
                             "Цена: " << films[i]->price << endl << endl;
     }
@@ -209,7 +212,7 @@ int main() {
 
     vector<Film*> foundFilms;
 
-    if (searchParam == 0) { // Поиск по году
+    if (searchParam == SearchParam::Year) { // Поиск по году
         string year;
         cout << "Введите год выпуска" << endl;
         cin >> year;
@@ -229,11 +232,11 @@ int main() {
             for (Film* film : foundFilms) {
                     cout << i << "." << endl <<
                         "Название: " << film->name << endl <<
-                        "Жанр: " << Genre(film) << endl <<
+                        "Жанр: " << GetGenreByNumber(film) << endl <<
                         "Дата: " << film->date << endl <<
                         "Цена: " << film->price << endl << endl;
                     ++i;
-     
+
             }
         }else {
             cout << "Фильмы не найдены" << endl;
@@ -242,7 +245,7 @@ int main() {
     }
 
 
-    if(searchParam == 1) { //Поиск по жанру
+    if(searchParam == SearchParam::Genre) { //Поиск по жанру
         cout << "Жанр:" << endl <<
             "1 - Романтическая комедия" << endl <<
             "2 - Научная фантастика" << endl <<
@@ -276,21 +279,21 @@ int main() {
             }
             break;
         }
-       
+
         for (int i = 0; i < count; i++) {
             if (films[i]->genre == genre) {
                 foundFilms.push_back(films[i]);
             }
         }
-    
+
         if (foundFilms.size()) {
             cout << "Количество найденных фильмов: " << foundFilms.size() << endl <<
-                "Жанр: " << Genre(genre) << endl;
+                "Жанр: " << GetGenreByNumber(genre) << endl;
             int i = 1;
             for (Film* film : foundFilms) {
                 cout << i << "." << endl <<
                     "Название: " << film->name << endl <<
-                    "Жанр: " << Genre(film) << endl <<
+                    "Жанр: " << GetGenreByNumber(film) << endl <<
                     "Дата: " << film->date << endl <<
                     "Цена: " << film->price << endl << endl;
                 ++i;
