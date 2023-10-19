@@ -3,6 +3,7 @@
 #include <vector>
 #include <regex>
 #include <exception>
+#include <map>
 
 using namespace std;
 
@@ -74,6 +75,14 @@ string GetGenre(Film* film) {
     }
 }
 
+map<int, string> filmsMap{
+        pair<int, string>{Genre::Romcom, "Романтическая комедия"},
+        pair<int, string>{Genre::Scifi, "Научная фантастика"},
+        pair<int, string>{Genre::Horror, "Фильм ужасов"},
+        pair<int, string>{Genre::Documentary, "Документальный фильм"},
+        pair<int, string>{Genre::Action, "Боевик"},
+        pair<int, string>{Genre::Drama, "Боевик"},
+    };
 int main() {
     setlocale(LC_ALL, "Russian");
 
@@ -127,7 +136,7 @@ int main() {
                 continue;
             }
 
-            if (genre < 1 || genre > 6) {
+            if (!filmsMap.count(genre)) {
                 cout << "Жанр:" << endl <<
                     "1 - Романтическая комедия" << endl <<
                     "2 - Научная фантастика" << endl <<
@@ -142,7 +151,7 @@ int main() {
             break;
         }
 
-        cout << "Жанр -- " << GetGenreByNumber(genre) << endl;
+        cout << "Жанр -- " << filmsMap[genre] << endl;
 
         while (true) {
             cout << "Введите дату выхода в формате ДД/ММ/ГГГГ" << endl;
@@ -288,7 +297,7 @@ int main() {
 
         if (foundFilms.size()) {
             cout << "Количество найденных фильмов: " << foundFilms.size() << endl <<
-                "Жанр: " << GetGenreByNumber(genre) << endl;
+                "Жанр: " << filmsMap[genre] << endl;
             int i = 1;
             for (Film* film : foundFilms) {
                 cout << i << "." << endl <<
