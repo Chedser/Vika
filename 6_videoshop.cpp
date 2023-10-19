@@ -81,7 +81,7 @@ map<int, string> filmsMap{
         pair<int, string>{Genre::Horror, "Фильм ужасов"},
         pair<int, string>{Genre::Documentary, "Документальный фильм"},
         pair<int, string>{Genre::Action, "Боевик"},
-        pair<int, string>{Genre::Drama, "Боевик"},
+        pair<int, string>{Genre::Drama, "Драма"}
     };
 int main() {
     setlocale(LC_ALL, "Russian");
