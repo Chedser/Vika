@@ -81,7 +81,7 @@ map<int, string> filmsMap{
         pair<int, string>{Genre::Horror, "Фильм ужасов"},
         pair<int, string>{Genre::Documentary, "Документальный фильм"},
         pair<int, string>{Genre::Action, "Боевик"},
-        pair<int, string>{Genre::Drama, "Драма"}
+        pair<int, string>{Genre::Drama, "Боевик"},
     };
 int main() {
     setlocale(LC_ALL, "Russian");
@@ -314,6 +314,20 @@ int main() {
         }
 
     }
+
+    for(int i = 0; i < count; i++){
+        delete films[i];
+        films[i] = nullptr;
+    }
+    delete [] films;
+    films = nullptr;
+
+    foundFilms.clear();
+    for(Film* film:foundFilms){
+        delete film;
+        film = nullptr;
+    }
+    foundFilms.~vector();
 
     cout << "--ЗАВЕРШЕНИЕ ПРОГРАММЫ--" << endl;
 
