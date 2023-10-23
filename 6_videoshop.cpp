@@ -39,8 +39,6 @@ Film::Film(string name, string date, int genre, int price) : name(name), date(da
 void SplitString(string str, char separator, vector<string>& strings) {
     int startIndex = 0, endIndex = 0;
     for (size_t i = 0; i <= str.size(); i++) {
-
-        // If we reached the end of the word or the end of the input.
         if (str[i] == separator || i == str.size()) {
             endIndex = i;
             string temp;
